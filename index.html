@@ -33,7 +33,7 @@
         .dollar-rain {
             position: absolute;
             font-size: 2.5rem;
-            color: rgba(50, 50, 50, 0.1);
+            color: rgba(80, 80, 80, 0.15);
             animation: fall linear infinite;
             pointer-events: none;
         }
@@ -53,7 +53,7 @@
         .name {
             font-size: 2rem;
             font-weight: bold;
-            color: #444444;
+            color: #666666;
             letter-spacing: 4px;
             position: relative;
             z-index: 2;
@@ -65,7 +65,7 @@
 
         .name:hover {
             transform: scale(1.15);
-            color: #666666;
+            color: #888888;
             text-shadow: 0 0 40px rgba(255, 0, 0, 0.6),
                          0 0 80px rgba(255, 0, 0, 0.25);
         }
@@ -142,7 +142,7 @@
         .dollar-bg {
             position: absolute;
             font-size: 2rem;
-            color: rgba(40, 40, 40, 0.08);
+            color: rgba(60, 60, 60, 0.12);
             animation: fall-slow linear infinite;
             pointer-events: none;
         }
@@ -168,9 +168,9 @@
 
         .section-wrapper {
             position: relative;
-            width: 65%;
-            height: 75%;
-            max-width: 380px;
+            width: 72%;
+            height: 80%;
+            max-width: 420px;
             cursor: pointer;
         }
 
@@ -181,14 +181,24 @@
             border-radius: 12px;
             transition: filter 0.3s ease;
             filter: brightness(0.85);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+            box-shadow: none;
         }
 
-        .portfolio-img:hover,
         .portfolio-img.active {
-            filter: brightness(0.6) sepia(0.3);
-            box-shadow: 0 0 25px rgba(139, 0, 0, 0.6), 
-                        inset 0 0 20px rgba(139, 0, 0, 0.2);
+            filter: brightness(0.5);
+            animation: dark-red-flash 0.4s ease;
+        }
+
+        @keyframes dark-red-flash {
+            0% {
+                filter: brightness(0.85);
+            }
+            50% {
+                filter: brightness(0.4) sepia(0.4);
+            }
+            100% {
+                filter: brightness(0.5);
+            }
         }
 
         .img-overlay {
@@ -227,9 +237,9 @@
             }
 
             .section-wrapper {
-                width: 70%;
-                height: 75%;
-                max-width: 330px;
+                width: 72%;
+                height: 80%;
+                max-width: 370px;
             }
         }
 
@@ -252,9 +262,9 @@
             }
 
             .section-wrapper {
-                width: 75%;
-                height: 75%;
-                max-width: 280px;
+                width: 78%;
+                height: 80%;
+                max-width: 300px;
             }
 
             .dollar-rain {
@@ -283,7 +293,7 @@
 
         <!-- Music Player - Autoplay -->
         <audio id="bgMusic" autoplay loop>
-            <source src="hype.mp3" type="audio/mp3">
+            <source src="hype.mp3" type="audio/mpeg">
         </audio>
 
         <!-- Photo Section 1 -->
@@ -342,7 +352,7 @@
 
         // Create landing page dollar rain
         function createLandingDollars() {
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 25; i++) {
                 const dollar = document.createElement('div');
                 dollar.className = 'dollar-rain';
                 dollar.textContent = '$';
@@ -359,19 +369,23 @@
         nameBtn.addEventListener('click', () => {
             landingPage.classList.add('hidden');
             portfolioContainer.classList.add('active');
-            createDollarRain(bgDollars, 20);
+            createDollarRain(bgDollars, 35);
             bgMusic.play().catch(err => console.log('Autoplay prevented'));
         });
 
-        // Image effects on tap/click - NO ANIMATIONS, JUST DARK RED
+        // Simple dark red animation on tap
         portfolioImgs.forEach(img => {
             img.addEventListener('click', () => {
                 img.classList.add('active');
                 setTimeout(() => img.classList.remove('active'), 400);
             });
+        });
 
-            img.addEventListener('mouseenter', () => img.classList.add('active'));
-            img.addEventListener('mouseleave', () => img.classList.remove('active'));
+        // Prevent image stretching on scroll
+        document.addEventListener('touchmove', (e) => {
+            if (portfolioContainer.classList.contains('active')) {
+                // Allow normal scrolling behavior
+            }
         });
     </script>
 </body>
