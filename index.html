@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* LANDING PAGE */
+        .landing-page {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing-container {
+            text-align: center;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .name-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .animated-name {
+            font-size: 4rem;
+            font-weight: bold;
+            letter-spacing: 4px;
+            background: linear-gradient(45deg, #ff0000, #0099ff, #ff0000);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            filter: drop-shadow(0 0 20px rgba(0, 153, 255, 0.5));
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glow-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 2px solid #ff0000;
+            border-radius: 50%;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .glow-ring.delay-1 {
+            width: 280px;
+            height: 280px;
+            border-color: #0099ff;
+            animation-delay: 0.3s;
+        }
+
+        .glow-ring.delay-2 {
+            width: 360px;
+            height: 360px;
+            border-color: #ff0000;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        .tap-hint {
+            font-size: 1.2rem;
+            margin-top: 50px;
+            color: #0099ff;
+            animation: bounce 2s ease-in-out infinite;
+            letter-spacing: 2px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* PORTFOLIO */
+        .portfolio-container {
+            width: 100%;
+            background: #0a0a0a;
+            display: none;
+        }
+
+        .photo-section {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0a0a0a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-wrapper {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            max-width: 600px;
+            cursor: pointer;
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: all 0.4s ease;
+            filter: brightness(0.8);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .portfolio-img:hover,
+        .portfolio-img.active {
+            filter: brightness(1.2) saturate(1.5);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.8), 
+                        0 0 60px rgba(0, 153, 255, 0.4),
+                        inset 0 0 40px rgba(255, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .img-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        /* BACK BUTTON */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid #ff0000;
+            color: #ff0000;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .back-btn:hover {
+            background: #ff0000;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        .portfolio-container.active .back-btn {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .animated-name {
+                font-size: 2.5rem;
+            }
+
+            .tap-hint {
+                font-size: 1rem;
+                margin-top: 30px;
+            }
+
+            .back-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .animated-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div class="landing-page" id="landingPage">
+        <div class="landing-container">
+            <div class="name-wrapper">
+                <h1 class="animated-name">SEIF</h1>
+                <div class="glow-ring"></div>
+                <div class="glow-ring delay-1"></div>
+                <div class="glow-ring delay-2"></div>
+            </div>
+            <p class="tap-hint">Tap to enter</p>
+        </div>
+    </div>
+
+    <!-- Main Portfolio -->
+    <div class="portfolio-container" id="portfolioContainer">
+        <!-- Music Player -->
+        <audio id="bgMusic" autoplay>
+            <source src="your-song.mp3" type="audio/mpeg">
+        </audio>
+
+        <!-- Section 1 -->
+        <section class="photo-section">
+            <div class="section-wrapper">
+                <img src="photo1.jpg" alt="Portfolio Photo 1" class="portfolio-img">
+                <div class="img-overlay"></div>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="photo-section">
+            <div class="section-wrapper">
+                <img src="photo2.jpg" alt="Portfolio Photo 2" class="portfolio-img">
+                <div class="img-overlay"></div>
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="photo-section">
+            <div class="section-wrapper">
+                <img src="photo3.jpg" alt="Portfolio Photo 3" class="portfolio-img">
+                <div class="img-overlay"></div>
+            </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="photo-section">
+            <div class="section-wrapper">
+                <img src="photo4.jpg" alt="Portfolio Photo 4" class="portfolio-img">
+                <div class="img-overlay"></div>
+            </div>
+        </section>
+
+        <!-- Back Button -->
+        <button class="back-btn" id="backBtn">← Back</button>
+    </div>
+
+    <script>
+        const landingPage = document.getElementById('landingPage');
+        const portfolioContainer = document.getElementById('portfolioContainer');
+        const backBtn = document.getElementById('backBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        const portfolioImgs = document.querySelectorAll('.portfolio-img');
+
+        // Enter portfolio on click/tap
+        landingPage.addEventListener('click', () => {
+            landingPage.style.display = 'none';
+            portfolioContainer.classList.add('active');
+            bgMusic.play().catch(err => console.log('Music prevented'));
+        });
+
+        // Image glow effects
+        portfolioImgs.forEach(img => {
+            img.addEventListener('click', () => {
+                img.classList.add('active');
+                createParticles(img);
+                setTimeout(() => img.classList.remove('active'), 600);
+            });
+
+            img.addEventListener('mouseenter', () => img.classList.add('active'));
+            img.addEventListener('mouseleave', () => img.classList.remove('active'));
+        });
+
+        // Particle effect
+        function createParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 8px;
+                    height: 8px;
+                    background: ${i % 2 === 0 ? '#ff0000' : '#0099ff'};
+                    border-radius: 50%;
+                    left: ${centerX}px;
+                    top: ${centerY}px;
+                    pointer-events: none;
+                    box-shadow: 0 0 10px ${i % 2 === 0 ? '#ff0000' : '#0099ff'};
+                `;
+                document.body.appendChild(particle);
+
+                const angle = (i / 8) * Math.PI * 2;
+                const velocity = 5;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+
+                let x = centerX, y = centerY, life = 1;
+
+                const animate = () => {
+                    x += vx;
+                    y += vy;
+                    life -= 0.02;
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    particle.style.opacity = life;
+
+                    if (life > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        particle.remove();
+                    }
+                };
+                animate();
+            }
+        }
+
+        // Back button
+        backBtn.addEventListener('click', () => {
+            landingPage.style.display = 'flex';
+            portfolioContainer.classList.remove('active');
+            bgMusic.pause();
+            bgMusic.currentTime = 0;
+        });
+    </script>
+</body>
+</html>
