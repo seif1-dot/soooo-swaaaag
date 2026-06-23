@@ -126,9 +126,9 @@
 
         .section-wrapper {
             position: relative;
-            width: 90%;
-            height: 90%;
-            max-width: 500px;
+            width: 70%;
+            height: 70%;
+            max-width: 400px;
             cursor: pointer;
         }
 
@@ -162,35 +162,6 @@
             pointer-events: none;
         }
 
-        .back-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 12px 24px;
-            background: transparent;
-            border: 2px solid #ff0000;
-            color: #ff0000;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            letter-spacing: 2px;
-            font-weight: bold;
-            display: none;
-        }
-
-        .back-btn:hover {
-            background: #ff0000;
-            color: #000;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-            transform: scale(1.1);
-        }
-
-        .portfolio-container.active .back-btn {
-            display: block;
-        }
-
         .landing-page.hidden {
             display: none;
         }
@@ -215,13 +186,10 @@
                 height: 350px;
             }
 
-            .portfolio-img {
-                border-radius: 8px;
-            }
-
-            .back-btn {
-                padding: 10px 16px;
-                font-size: 0.9rem;
+            .section-wrapper {
+                width: 75%;
+                height: 75%;
+                max-width: 350px;
             }
         }
 
@@ -244,14 +212,9 @@
             }
 
             .section-wrapper {
-                max-width: 350px;
-            }
-
-            .back-btn {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-                top: 10px;
-                left: 10px;
+                width: 80%;
+                height: 80%;
+                max-width: 280px;
             }
         }
     </style>
@@ -270,7 +233,7 @@
     <div class="portfolio-container" id="portfolioContainer">
         <!-- Music Player - Autoplay -->
         <audio id="bgMusic" autoplay loop>
-            <source src="your-song.mp3" type="audio/mpeg">
+            <source src="hype.mp3" type="audio/mpeg">
         </audio>
 
         <!-- Photo Section 1 -->
@@ -304,16 +267,12 @@
                 <div class="img-overlay"></div>
             </div>
         </section>
-
-        <!-- Back Button -->
-        <button class="back-btn" id="backBtn">← Back</button>
     </div>
 
     <script>
         const landingPage = document.getElementById('landingPage');
         const portfolioContainer = document.getElementById('portfolioContainer');
         const nameBtn = document.getElementById('nameBtn');
-        const backBtn = document.getElementById('backBtn');
         const bgMusic = document.getElementById('bgMusic');
         const portfolioImgs = document.querySelectorAll('.portfolio-img');
 
@@ -381,14 +340,6 @@
                 animate();
             }
         }
-
-        // Back button
-        backBtn.addEventListener('click', () => {
-            landingPage.classList.remove('hidden');
-            portfolioContainer.classList.remove('active');
-            bgMusic.pause();
-            bgMusic.currentTime = 0;
-        });
     </script>
 </body>
 </html>
