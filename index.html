@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>س ي ف</title>
+    <title>SEIF</title>
     <style>
         * {
             margin: 0;
@@ -28,16 +28,24 @@
         }
 
         .name {
-            font-size: 8rem;
+            font-size: 3rem;
             font-weight: bold;
             color: #ffffff;
-            letter-spacing: 8px;
+            letter-spacing: 4px;
             position: relative;
             z-index: 2;
-            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
             text-shadow: 0 0 50px rgba(255, 0, 0, 0.8),
                          0 0 100px rgba(255, 0, 0, 0.5),
                          0 0 150px rgba(255, 0, 0, 0.3);
+        }
+
+        .name:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 60px rgba(255, 0, 0, 1),
+                         0 0 120px rgba(255, 0, 0, 0.7),
+                         0 0 180px rgba(255, 0, 0, 0.5);
         }
 
         .glow-effect {
@@ -68,15 +76,6 @@
             z-index: 0;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
         @keyframes pulse-glow {
             0%, 100% {
                 opacity: 0.5;
@@ -101,8 +100,8 @@
 
         @media (max-width: 768px) {
             .name {
-                font-size: 5rem;
-                letter-spacing: 5px;
+                font-size: 2rem;
+                letter-spacing: 3px;
             }
 
             .glow-effect {
@@ -118,8 +117,8 @@
 
         @media (max-width: 480px) {
             .name {
-                font-size: 3rem;
-                letter-spacing: 3px;
+                font-size: 1.5rem;
+                letter-spacing: 2px;
             }
 
             .glow-effect {
@@ -140,7 +139,16 @@
     <div class="container">
         <div class="glow-effect"></div>
         <div class="glow-effect-2"></div>
-        <h1 class="name">س ي ف</h1>
+        <h1 class="name" id="nameBtn">س ي ف</h1>
     </div>
+
+    <script>
+        const nameBtn = document.getElementById('nameBtn');
+        
+        nameBtn.addEventListener('click', () => {
+            // Change this URL to your portfolio/photos page
+            window.location.href = 'portfolio.html';
+        });
+    </script>
 </body>
 </html>
